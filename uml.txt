@@ -1,0 +1,81 @@
+
+
+:Game
+------------
+Level level
+Scoreboard scoreboard
+------------
+void startGameLoop()
+
+
+:Scoreboard
+------------
+int score
+int coins
+int time
+int lives
+Pair<int, int> worldLevel
+------------
+void reduceTime(double deltaTms)
+void addScore(int amount)
+void addTime(int amount)
+void addLives(int amount)
+void setWorldLevel(int world, int level)
+
+
+:Level
+------------
+Object[] objects
+double scroll
+------------
+void tick(double deltaTms)
+void draw(Renderer r)
+
+
+
+
+:Object
+------------
+Vec<double> position
+Vec<double> velocity
+Vec<double> boxDimensions
+------------
+bool doesCollide(Object a)
+void collisionHandler(Object a)
+
+
+:Player : Object
+------------
+PlayerState playerState
+------------
+void tick(double deltaTms)
+void draw(Renderer r, double scroll)
+
+
+
+
+:Enemy : Object
+------------
+------------
+abstract void tick(double deltaTms)
+abstract void draw(Renderer r, double scroll)
+
+
+
+:Goomba : Enemy
+------------
+------------
+
+
+:KoopaTroopa : Enemy
+------------
+------------
+
+
+:LevelObject : Object
+------------
+bool isCollideable
+------------
+
+
+
