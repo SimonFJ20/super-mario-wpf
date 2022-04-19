@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace SuperMarioWPF;
 
-class GameKeyboard
+public class GameKeyboard
 {
     private Dictionary<Key, KeyStates> keyStates;
 

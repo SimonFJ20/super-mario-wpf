@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+using SuperMarioWPF.Utils;
 
-namespace SuperMarioWPF;
+namespace SuperMarioWPF.Objects;
 
 class Terrain : LevelObject
 {
@@ -25,13 +25,10 @@ class Terrain : LevelObject
         };
     }
 
-    public override void Draw(Dispatcher dispatcher)
+    public override void Draw()
     {
-        dispatcher.Invoke(() =>
-        {
-            Canvas.SetLeft(sprite, pos.x);
-            Canvas.SetTop(sprite, pos.y - 87);
-        });
+        Canvas.SetLeft(sprite, pos.x);
+        Canvas.SetTop(sprite, pos.y - 87);
     }
 
     public override void Load(Canvas canvas)
@@ -39,7 +36,7 @@ class Terrain : LevelObject
         canvas.Children.Add(sprite);
     }
 
-    public override bool Tick(double deltaTS)
+    public override bool Tick(double deltaSeconds)
     {
         pos.x = -game.scroll;
         return true;

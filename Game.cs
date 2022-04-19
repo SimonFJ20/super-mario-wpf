@@ -1,25 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+using SuperMarioWPF.Objects;
+using SuperMarioWPF.Utils;
 
 namespace SuperMarioWPF;
-class Game
+public class Game
 {
-    private Scoreboard scoreboard;
-    public GameKeyboard keyboard;
-    public LinkedList<GameObject> objects;
-    public Pair<int, int> worldLevel;
+    private readonly Scoreboard scoreboard;
+    public readonly GameKeyboard keyboard;
+    public readonly LinkedList<GameObject> objects;
     public double scroll;
 
     public Game()
@@ -41,15 +31,14 @@ class Game
         objects.AddLast(b3);
         objects.AddLast(g1);
         objects.AddLast(g2);
-        worldLevel = new Pair<int, int>(0, 0);
         scroll = 0;
     }
 
-    public bool Tick(double deltaTS)
+    public bool Tick(double deltaSeconds)
     {
-        if (!scoreboard.Tick(deltaTS))
+        if (!scoreboard.Tick(deltaSeconds))
             return false;
-        return objects.ToArray().All(o => o.Tick(deltaTS));
+        return objects.ToArray().All(o => o.Tick(deltaSeconds));
     }
 
     public void Load(Canvas canvas)
@@ -58,15 +47,19 @@ class Game
             o.Load(canvas);
     }
 
-    public void Draw(Dispatcher dispatcher)
+    public void Draw()
     {
         foreach (var o in objects)
-            o.Draw(dispatcher);
+            o.Draw();
     }
 
-    public GameObject[] CollidingObjects(GameObject caller)
+    public IEnumerable<ICollidable> CollidingObjects(ICollidable caller)
     {
-        return objects.Where(o => o.DoesCollide(caller)).ToArray();
+        var collidingObjects = new LinkedList<ICollidable>();
+        foreach (var o in objects)
+            if (o is ICollidable collidable && collidable.DoesCollide(caller))
+                collidingObjects.AddLast(collidable);
+        return collidingObjects.ToArray();
     }
 }
 

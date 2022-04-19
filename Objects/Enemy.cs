@@ -1,6 +1,6 @@
-﻿namespace SuperMarioWPF;
+﻿namespace SuperMarioWPF.Objects;
 
-abstract class Enemy : GameObject
+abstract class Enemy : PhysicsObject
 {
     public Enemy(Game game)
         : base(game)

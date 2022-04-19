@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+using SuperMarioWPF.Utils;
 
-namespace SuperMarioWPF;
+namespace SuperMarioWPF.Objects;
 
 class Goomba : Enemy
 {
@@ -17,8 +17,8 @@ class Goomba : Enemy
         : base(game)
     {
         box = new Vec2<double>(32, 32);
-        pos.y = p.y;
-        offsetx = p.x;
+        pos.y = p.Y;
+        offsetx = p.X;
         player = pl;
         sprite = new Image
         {
@@ -34,30 +34,27 @@ class Goomba : Enemy
         canvas.Children.Add(sprite);
     }
 
-    public override void Draw(Dispatcher dispatcher)
+    public override void Draw()
     {
-        dispatcher.Invoke(() =>
-        {
-            Canvas.SetLeft(sprite, pos.x);
-            Canvas.SetTop(sprite, pos.y);
-            if (usingImageOne)
-                sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico1.png", UriKind.Absolute));
-            else
-                sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico2.png", UriKind.Absolute));
-            usingImageOne = !usingImageOne;
-            if (shouldRemoveSelf)
-                game.objects.Remove(this);
-        });
+        Canvas.SetLeft(sprite, pos.x);
+        Canvas.SetTop(sprite, pos.y);
+        if (usingImageOne)
+            sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico1.png", UriKind.Absolute));
+        else
+            sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico2.png", UriKind.Absolute));
+        usingImageOne = !usingImageOne;
+        if (shouldRemoveSelf)
+            game.objects.Remove(this);
     }
 
-    public override bool Tick(double deltaTS)
+    public override bool Tick(double deltaSeconds)
     {
         pos.x = -game.scroll + offsetx;
         if (player.pos.x < pos.x)
             vel.x = -128;
         else
             vel.x = 128;
-        offsetx += vel.x * deltaTS;
+        offsetx += vel.x * deltaSeconds;
         return true;
     }
 }

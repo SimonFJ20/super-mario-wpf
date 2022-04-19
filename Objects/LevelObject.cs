@@ -1,4 +1,4 @@
-﻿namespace SuperMarioWPF;
+﻿namespace SuperMarioWPF.Objects;
 
 abstract class LevelObject : GameObject
 {
