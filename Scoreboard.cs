@@ -13,9 +13,9 @@ class Scoreboard
         time = 300;
     }
 
-    public bool Tick(double deltaTS)
+    public bool Tick(double deltaSeconds)
     {
-        time -= deltaTS;
+        time -= deltaSeconds;
         return !(time < 0);
     }
 }

@@ -9,17 +9,18 @@ namespace SuperMarioWPF.Objects;
 class Terrain : LevelObject
 {
     private Image sprite;
+    private Vec2<double> Box { get; set; } 
 
     public Terrain(Game game)
         : base(game)
     {
-        box = new Vec2<double>(2120, 667);
-        pos.x = -100;
-        pos.y = 300;
+        Box = new Vec2<double>(2120, 667);
+        Position.X = -100;
+        Position.Y = 300;
         sprite = new Image
         {
-            Width = box.x,
-            Height = box.y,
+            Width = Box.X,
+            Height = Box.Y,
             Stretch = Stretch.Fill,
             Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\terreno.png", UriKind.Absolute)),
         };
@@ -27,8 +28,8 @@ class Terrain : LevelObject
 
     public override void Draw()
     {
-        Canvas.SetLeft(sprite, pos.x);
-        Canvas.SetTop(sprite, pos.y - 87);
+        Canvas.SetLeft(sprite, Position.X);
+        Canvas.SetTop(sprite, Position.Y - 87);
     }
 
     public override void Load(Canvas canvas)
@@ -38,7 +39,7 @@ class Terrain : LevelObject
 
     public override bool Tick(double deltaSeconds)
     {
-        pos.x = -game.scroll;
+        Position.X = -game.scroll;
         return true;
     }
 }

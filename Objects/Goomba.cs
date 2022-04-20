@@ -16,14 +16,14 @@ class Goomba : Enemy
     public Goomba(Game game, Vec2<double> p, Player pl)
         : base(game)
     {
-        box = new Vec2<double>(32, 32);
-        pos.y = p.Y;
+        Box = new Vec2<double>(32, 32);
+        Position.Y = p.Y;
         offsetx = p.X;
         player = pl;
         sprite = new Image
         {
-            Width = box.x,
-            Height = box.y,
+            Width = Box.X,
+            Height = Box.Y,
             Stretch = Stretch.Fill,
             Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico1.png", UriKind.Absolute)),
         };
@@ -36,25 +36,23 @@ class Goomba : Enemy
 
     public override void Draw()
     {
-        Canvas.SetLeft(sprite, pos.x);
-        Canvas.SetTop(sprite, pos.y);
+        Canvas.SetLeft(sprite, Position.X);
+        Canvas.SetTop(sprite, Position.Y);
         if (usingImageOne)
             sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico1.png", UriKind.Absolute));
         else
             sprite.Source = new BitmapImage(new Uri(@"Z:\opgaver-eud\SuperMarioWPF\assets\supermario\textures\nemico2.png", UriKind.Absolute));
         usingImageOne = !usingImageOne;
-        if (shouldRemoveSelf)
-            game.objects.Remove(this);
     }
 
     public override bool Tick(double deltaSeconds)
     {
-        pos.x = -game.scroll + offsetx;
-        if (player.pos.x < pos.x)
-            vel.x = -128;
+        Position.X = -game.scroll + offsetx;
+        if (player.Position.X < Position.X)
+            Velocity.X = -128;
         else
-            vel.x = 128;
-        offsetx += vel.x * deltaSeconds;
+            Velocity.X = 128;
+        offsetx += Velocity.X * deltaSeconds;
         return true;
     }
 }
