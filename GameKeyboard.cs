@@ -5,7 +5,7 @@ namespace SuperMarioWPF;
 
 public class GameKeyboard
 {
-    private Dictionary<Key, KeyStates> keyStates;
+    private readonly Dictionary<Key, KeyStates> keyStates;
 
     public GameKeyboard()
     {
@@ -20,12 +20,7 @@ public class GameKeyboard
     public KeyStates Get(Key k)
     {
         if (keyStates.ContainsKey(k))
-        {
             return keyStates[k];
-        }
-        else
-        {
-            return keyStates[k] = KeyStates.None;
-        }
+        return keyStates[k] = KeyStates.None;
     }
 }

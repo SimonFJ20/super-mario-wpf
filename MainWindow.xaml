@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperMarioWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Width="532" Height="500"
         KeyDown="OnKeyPress"
         KeyUp="OnKeyRelease"
         Closed="OnClose">
     <Grid>
-        <Canvas x:Name="canvas" Background="DeepSkyBlue"/>
+        <Canvas x:Name="canvas" Background="DeepSkyBlue" Width="512" Height="480"/>
 
     </Grid>
 </Window>
